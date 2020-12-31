@@ -28,7 +28,7 @@ pipeline {
 	    stage ('Source-Composition-Analysis'){
 		    steps {
 			 sh 'rm owasp-* || true'
-			    sh 'wget https://github.com/vineetapte/webapp/blob/master/owasp-dependency-check.sh'
+			    sh 'wget https://raw.githubusercontent.com/vineetapte/webapp/master/owasp-dependency-check.sh'
 			    sh 'chmod +x owasp-dependency-check.sh'
 			    sh 'bash owasp-dependency-check.sh'
 			    sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
@@ -37,7 +37,7 @@ pipeline {
 	    stage ('Deploy-to-Tomcat'){
 		    steps {
 			    sshagent(['tomcat']) {
-				    sh "scp -o StrictHostKeyChecking=no target/WebApp.war vineet@192.168.0.108:/var/lib/tomcat9/webapps/WebApp.war"
+				    sh "scp -o StrictHostKeyChecking=no target/WebApp.war vineet@192.168.0.109:/var/lib/tomcat9/webapps/WebApp.war"
 			    }
 		    }
 	    }
